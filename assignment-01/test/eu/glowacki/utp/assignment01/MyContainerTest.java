@@ -39,8 +39,8 @@ public class MyContainerTest {
     @Test
     public void cloneElementAtIndex() {
         Employee clone = container.cloneElementAtIndex(0);
-        Assert.assertEquals(container.cloneElementAtIndex(0), clone);
-        Assert.assertNotSame(container.cloneElementAtIndex(0), clone);
+        Assert.assertEquals(container.get(0), clone);
+        Assert.assertNotSame(container.get(0), clone);
     }
 
     @Test
