@@ -14,11 +14,11 @@ public class Money implements IAggregable<Money, Double>, IDeeplyCloneable<Money
         UAH
     }
 
-    private double ammount;
+    private Double amount;
     private Currency currency;
 
-    public Money(double ammount, Currency currency) {
-        this.ammount = ammount;
+    public Money(double amount, Currency currency) {
+        this.amount = amount;
         this.currency = currency;
     }
 
@@ -26,19 +26,16 @@ public class Money implements IAggregable<Money, Double>, IDeeplyCloneable<Money
     public Double aggregate(Double intermediateResult) {
 
         if (intermediateResult == null) {
-            return ammount;
+            return amount;
         }
-        return intermediateResult + ammount;
+        return intermediateResult + amount;
     }
 
     @Override
     public Money deepClone() {
-        return new Money(ammount, currency);
+        return new Money(amount, currency);
     }
 
-    public double getAmmount() {
-        return ammount;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -50,17 +47,21 @@ public class Money implements IAggregable<Money, Double>, IDeeplyCloneable<Money
 
         Money money = (Money) obj;
         // field comparison
-        return Objects.equals(ammount, money.getAmmount())
+        return Objects.equals(amount, money.getAmount())
                 && Objects.equals(currency, money.getCurrency());
     }
 
     @Override
     public String toString() {
-        return Double.toString(ammount) + " " + currency.toString();
+        return Double.toString(amount) + " " + currency;
     }
 
-    public void setAmmount(double ammount) {
-        this.ammount = ammount;
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public Currency getCurrency() {

@@ -1,12 +1,16 @@
 package eu.glowacki.utp.assignment01.solution;
 
 import eu.glowacki.utp.assignment01.IAggregable;
+import eu.glowacki.utp.assignment01.IContainer;
 import eu.glowacki.utp.assignment01.IDeeplyCloneable;
 import eu.glowacki.utp.assignment01.sample.Person;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-public class Employee implements IAggregable<Employee, Integer>, IDeeplyCloneable<Employee> {
+public class Employee implements IAggregable<Employee, String>, IDeeplyCloneable<Employee> {
 
     private String name;
     private int age;
@@ -22,8 +26,12 @@ public class Employee implements IAggregable<Employee, Integer>, IDeeplyCloneabl
     }
 
     @Override
-    public Integer aggregate(Integer intermediateResult) {
-        return null;
+    public String aggregate(String intermediateResult) {
+        if  (intermediateResult == null) {
+            return toString();
+        }
+
+        return intermediateResult + "\n" + toString();
     }
 
     @Override
@@ -38,6 +46,21 @@ public class Employee implements IAggregable<Employee, Integer>, IDeeplyCloneabl
                 ", age=" + age +
                 ", salary=" + salary.toString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
+        Employee employee = (Employee) obj;
+        // field comparison
+        return Objects.equals(name, employee.getName())
+                && Objects.equals(age, employee.getAge())
+                && Objects.equals(salary, employee.getSalary());
     }
 
     public String getName() {
