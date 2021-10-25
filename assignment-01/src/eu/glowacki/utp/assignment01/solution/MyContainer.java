@@ -9,7 +9,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MyContainer<TElement extends IAggregable<TElement, TAggregateResult> & IDeeplyCloneable<TElement>, TAggregateResult> implements IContainer<TElement, TAggregateResult> {
+public class MyContainer<TElement extends IAggregable<TElement, TAggregateResult>
+                                    & IDeeplyCloneable<TElement>, TAggregateResult>
+                                    implements IContainer<TElement, TAggregateResult> {
 
 
     private List<TElement> elementList;
