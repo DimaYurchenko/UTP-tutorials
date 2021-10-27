@@ -33,4 +33,12 @@ public abstract class Employee extends Person {
 	public void setManager(Manager manager) {
 		this.manager = manager;
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() +
+				", salary=" + salary +
+				", manager=" + (getManager() == null ? "no manager" :
+				manager.getFirstName() + " " + manager.getSurname());
+	}
 }

@@ -49,4 +49,12 @@ public abstract class Person {
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + ": " +
+				"firstName='" + firstName + '\'' +
+				", surname='" + surname + '\'' +
+				", birthDate=" + birthDate;
+	}
 }

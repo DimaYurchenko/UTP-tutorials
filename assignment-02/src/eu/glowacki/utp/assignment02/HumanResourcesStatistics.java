@@ -6,21 +6,47 @@ import java.util.stream.Collectors;
 
 import eu.glowacki.utp.assignment02.employee.Employee;
 import eu.glowacki.utp.assignment02.employee.Manager;
+import eu.glowacki.utp.assignment02.employee.Trainee;
+import eu.glowacki.utp.assignment02.employee.Worker;
 import eu.glowacki.utp.assignment02.payroll.PayrollEntry;
 
 public final class HumanResourcesStatistics {
 
 	public static List<PayrollEntry> payroll(List<Employee> employees) {
-		return null;
+		if (employees == null) {
+			return null;
+		}
+		return employees.stream().map(
+				employee -> new PayrollEntry(employee, employee.getSalary(),
+						employee instanceof Worker ?
+								((Worker) employee).getBonus() : null)
+		).collect(Collectors.toList());
+
 	}
 
 	// payroll for all subordinates
 	public static List<PayrollEntry> subordinatesPayroll(Manager manager) {
-		return null;
+		if (manager == null) {
+			return null;
+		}
+
+		return payroll(manager.getAllSubordinates());
 	}
 
 	public static BigDecimal bonusTotal(List<Employee> employees) {
-		return null;
+		if (employees == null) {
+			return null;
+		}
+
+		return employees.stream().filter(
+				employee -> employee instanceof Worker
+		).map(
+				employee -> (Worker) employee
+		).reduce(
+				BigDecimal.ZERO,
+				(subtotal, worker) -> subtotal.add(worker.getBonus()),
+				BigDecimal::add
+		);
 	}
 
 	/// ...
