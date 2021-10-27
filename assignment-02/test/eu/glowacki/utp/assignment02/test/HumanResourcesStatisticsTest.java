@@ -38,6 +38,7 @@ public class HumanResourcesStatisticsTest {
 	private Worker w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14;
 	private Trainee tr1, tr2, tr3;
 	private Manager mngr1, mngr2, director;
+
 	@Before
 	public void before() {
 		w1 = new Worker("Zachary", "Harris", LocalDate.of(1982, 8, 10), new BigDecimal(93789), LocalDate.of(2014, 8, 19), new BigDecimal(0));
@@ -65,25 +66,22 @@ public class HumanResourcesStatisticsTest {
 				Arrays.asList(mngr1,mngr2,w12,w13,w14,tr3));
 
 		_allEmployees = Arrays.asList(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,tr1,tr2,tr3,mngr1,mngr2,director);
-
-
 	}
 
 
 	@Test
 	public void payroll() {
-		HumanResourcesStatistics.payroll(_allEmployees).forEach(System.out::println); // implement
-
+		HumanResourcesStatistics.payroll(_allEmployees).forEach(System.out::println);
 	}
 
 	@Test
 	public void subordinatesPayroll() {
-		HumanResourcesStatistics.subordinatesPayroll(director).forEach(System.out::println);// implement
+		HumanResourcesStatistics.subordinatesPayroll(director).forEach(System.out::println);
 	}
 
 	@Test
 	public void bonusTotal() {
-		BigDecimal expectedBonus = new BigDecimal(81770);
+		BigDecimal expectedBonus = new BigDecimal(106482);
 		BigDecimal actualBonus = HumanResourcesStatistics.bonusTotal(_allEmployees);
 		Assert.assertEquals(expectedBonus, actualBonus);
 	}

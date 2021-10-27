@@ -23,7 +23,6 @@ public final class HumanResourcesStatistics {
 						employee instanceof Worker ?
 								((Worker) employee).getBonus() : null)
 		).collect(Collectors.toList());
-
 	}
 
 	// payroll for all subordinates
