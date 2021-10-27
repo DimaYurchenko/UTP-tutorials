@@ -1,7 +1,9 @@
 package eu.glowacki.utp.assignment02;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import eu.glowacki.utp.assignment02.employee.Employee;
@@ -49,99 +51,67 @@ public final class HumanResourcesStatistics {
 		);
 	}
 
-	/// ...
-	// rest of the methods specified in the assignment description
-	
-	
-	/**
-	 * samples for functional processing in Java
-	 * 
-	 */
-	public static List<Short> getAges(List<Employee> employees) {
+	public static Worker longestSeniorityWorker(List <Employee> employees) throws NoSuchElementException {
 		if (employees == null) {
 			return null;
 		}
-		List<Short> ages = employees //
-				.stream() //
-				.map(emp -> emp.getAge()) //
+
+		List<Worker> workers = employees.stream()
+				.filter(employee -> employee instanceof Worker)
+				.map(employee -> (Worker)employee)
 				.collect(Collectors.toList());
-		return ages;
+
+		return workers
+				.stream()
+				.min(Comparator.comparing(Worker::getEmploymentDate))
+				.orElseThrow(NoSuchElementException::new);
 	}
 
-	public static void printAges(List<Employee> employees) {
+	public static BigDecimal highestSalary(List<Employee> employees) throws NoSuchElementException {
 		if (employees == null) {
-			return;
+			return null;
 		}
-		employees //
-				.stream() //
-				.map(emp -> (int) emp.getAge()) //
-				.forEach(age -> System.out.print(age + ", "));
+
+		return employees.stream()
+				.max(Comparator.comparing(Employee::getSalary))
+				.orElseThrow(NoSuchElementException::new)
+				.getSalary();
 	}
 
-	//
-	// average age for the Employees whose first name starts with 'A' and they are older than 20
-	public static short getAverageAgeInline(List<Employee> employees) {
+	public static BigDecimal highestSalaryWithBonus(List<Employee> employees) throws NoSuchElementException {
 		if (employees == null) {
-			return 0;
+			return null;
 		}
-		int employeeTotalAge = employees //
-				.stream() //
-				.filter(emp -> emp.getFirstName().startsWith("A") && emp.getAge() > 20) //
-				.map(emp -> (int) emp.getAge()) //
-				.reduce(0, //
-						(total, age) -> total + age);
 
-		long filteredEmployeesCount = employees //
-				.stream() //
-				.filter(emp -> emp.getFirstName().startsWith("A") && emp.getAge() > 20) //
-				.count();
+		List<Worker> workers = employees.stream()
+				.filter(employee -> employee instanceof Worker)
+				.map(employee -> (Worker)employee)
+				.collect(Collectors.toList());
 
-		return (short) (employeeTotalAge / filteredEmployeesCount);
+		return workers.stream()
+				.map(worker -> worker.getSalary().add(worker.getBonus()))
+				.max(BigDecimal::compareTo)
+				.orElseThrow(NoSuchElementException::new);
 	}
 
-	public static short getAverageAgeMethodReference(List<Employee> employees) {
+	public static List<Employee> employeesSurnameA(Manager manager) {
+		if (manager == null) {
+			return null;
+		}
+
+		return manager.getAllSubordinates()
+				.stream()
+				.filter(employee -> employee.getSurname().startsWith("A"))
+				.collect(Collectors.toList());
+	}
+
+	public static List<Employee> earnMoreThan(List<Employee> employees, BigDecimal ammount) {
 		if (employees == null) {
-			return 0;
+			return null;
 		}
-		int employeeTotalAge = employees //
-				.stream() //
-				.map(emp -> (int) emp.getAge()) //
-				.reduce(0, HumanResourcesStatistics::totalAge);
-		return (short) (employeeTotalAge / employees.size());
-	}
 
-	public static short getMaxAgeInline(List<Employee> employees) {
-		short employeeMaxAge = employees //
-				.stream() //
-				.map(emp -> emp.getAge()) //
-				.reduce((short) 0, //
-						(maxAge, age) -> {
-							if (maxAge < age) {
-								return age;
-							} else {
-								return maxAge;
-							}
-						});
-		return employeeMaxAge;
-	}
-
-	public static short getMaxAgeMethodReference(List<Employee> employees) {
-		short employeeMaxAge = employees //
-				.stream() //
-				.map(emp -> emp.getAge()) //
-				.reduce((short) 0, HumanResourcesStatistics::maxAge);
-		return employeeMaxAge;
-	}
-
-	private static int totalAge(int totalAge, int age) {
-		return totalAge + age;
-	}
-
-	private static short maxAge(short maxAge, short age) {
-		if (maxAge < age) {
-			return age;
-		} else {
-			return maxAge;
-		}
+		return employees.stream()
+				.filter(employee -> employee.getSalary().compareTo(ammount) > 0)
+				.collect(Collectors.toList());
 	}
 }
