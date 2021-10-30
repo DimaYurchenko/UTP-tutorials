@@ -40,13 +40,6 @@ public final class Manager extends Worker {
 		}
 
 		return allSubordinates;
-//		return subordinates.addAll(
-//				subordinates.stream().filter(
-//						subordinate -> subordinate instanceof Manager
-//				).map(
-//						subManager -> (Manager)subManager
-//				).
-//		);
 	}
 
 
