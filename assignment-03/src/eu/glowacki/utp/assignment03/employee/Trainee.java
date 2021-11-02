@@ -20,6 +20,15 @@ public class Trainee extends Employee {
         this.apprenticeshipLength = apprenticeshipLength;
     }
 
+    public Trainee(Trainee that) {
+        this(that.getFirstName(),
+                that.getSurname(),
+                that.getBirthDate(),
+                that.getSalary(),
+                that.getApprenticeshipStart(),
+                that.getApprenticeshipLength());
+    }
+
     public LocalDate getApprenticeshipStart() {
         return apprenticeshipStart;
     }

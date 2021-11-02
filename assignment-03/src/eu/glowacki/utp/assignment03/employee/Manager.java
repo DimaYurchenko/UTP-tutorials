@@ -21,6 +21,16 @@ public class Manager extends Worker {
         setSubordinates(subordinates);
     }
 
+    public Manager(Manager that) {
+        this(that.getFirstName(),
+                that.getSurname(),
+                that.getBirthDate(),
+                that.getSalary(),
+                that.getEmploymentDate(),
+                that.getBonus(),
+                that.getSubordinates());
+    }
+
     //when adding subordinates call subordinate.setManager(this) for each subordinate
     public void setSubordinates(List<Employee> subordinates) {
         this.subordinates = subordinates;

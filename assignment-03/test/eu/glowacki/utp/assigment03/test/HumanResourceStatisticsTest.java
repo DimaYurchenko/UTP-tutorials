@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class HumanResourceStatisticsTest {
 
@@ -34,7 +35,7 @@ public final class HumanResourceStatisticsTest {
         w9 = new Worker("Melissa", "Allison", LocalDate.of(1981, 10, 8), new BigDecimal(38334), LocalDate.of(2016, 6, 27), new BigDecimal(0));
         w10 = new Worker("Susan", "Robles", LocalDate.of(1988, 5, 1), new BigDecimal(34571), LocalDate.of(2012, 1, 6), new BigDecimal(202));
         w11 = new Worker("Timothy", "Perry", LocalDate.of(1997, 11, 25), new BigDecimal(68281), LocalDate.of(2016, 5, 10), new BigDecimal(3663));
-        w12 = new Worker("Sara", "Austin", LocalDate.of(1985, 9, 6), new BigDecimal(20286), LocalDate.of(2008, 11, 2), new BigDecimal(5985));
+        w12 = new Worker("Sara", "Austin", LocalDate.of(1985, 9, 6), new BigDecimal(20286), LocalDate.of(2008, 11, 2), new BigDecimal(100));
         w13 = new Worker("Kate", "Buchanan", LocalDate.of(1991, 12, 12), new BigDecimal(41910), LocalDate.of(2011, 2, 22), new BigDecimal(0));
         w14 = new Worker("Taylor", "Nichols", LocalDate.of(1998, 11, 25), new BigDecimal(39713), LocalDate.of(2010, 12, 16), new BigDecimal(7195));
         tr1 = new Trainee("Patrik", "Dickerson", LocalDate.of(1998, 3, 1), new BigDecimal(10234), LocalDate.of(2021, 10, 16), 90);
@@ -52,15 +53,47 @@ public final class HumanResourceStatisticsTest {
 
     @Test
     public void olderThanAndEarnMoreTest() {
-        List<Employee> expected = Arrays.asList(w4, w5, w9);
+        List<Employee> expected = List.of(w4, w5, w9);
         List<Employee> actual = HumanResourceStatistics.olderThanAndEarnMore(_allEmployees, w1);
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void practiceLengthLongerThanTest() {
-        HumanResourceStatistics.practiceLengthLongerThan(_allEmployees, 100).forEach(System.out::println);
-        System.out.println(tr2);
+        final int DAYS = 80;
+        List<Trainee> expected = List.of(tr1, tr2);
+        List<Trainee> actual = HumanResourceStatistics.practiceLengthLongerThan(_allEmployees, DAYS);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void seniorityLongerThanMonthTest() {
+        final int MONTHS = 150;
+        List<Worker> expected = List.of(w12, director);
+        List<Worker> actual = HumanResourceStatistics.seniorityLongerThan(_allEmployees, MONTHS);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void seniorityBetweenOneAndThreeYearsTest() {
+        List<Worker> expected = List.of(w3, w8);
+        List<Worker> actual = HumanResourceStatistics.seniorityBetweenOneAndThreeYears(_allEmployees);
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void seniorityLongerThanWorkerTest() {
+        List<Worker> expected = List.of(w7, w12);
+        List<Worker> actual = HumanResourceStatistics.seniorityLongerThan(_allEmployees, w14);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void eniorityBetweenTwoAndFourYearsAndAgeGreaterThanTest() {
+        final int YEARS = 28;
+        List<Worker> expected = List.of(w6);
+        List<Worker> actual = HumanResourceStatistics.seniorityBetweenTwoAndFourYearsAndAgeGreaterThan(_allEmployees, YEARS);
+        Assert.assertEquals(expected, actual);
     }
 
 

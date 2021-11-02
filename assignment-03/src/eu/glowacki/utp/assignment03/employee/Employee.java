@@ -17,6 +17,8 @@ public abstract class Employee extends Person {
         this.salary = salary;
     }
 
+
+
     public BigDecimal getSalary() {
         return salary;
     }
