@@ -24,7 +24,7 @@ public class Worker extends Employee {
         this.bonus = bonus;
         hasBonus = bonus.compareTo(BigDecimal.ZERO) != 0;
     }
-    
+
 
     public LocalDate getEmploymentDate() {
         return employmentDate;
