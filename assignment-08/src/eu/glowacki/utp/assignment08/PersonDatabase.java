@@ -30,8 +30,6 @@ public final class PersonDatabase {
 	// assignment 8
 	public void serialize(DataOutputStream output) throws Assignment08Exception {
 
-		//			output.writeInt(people.size());
-
 		people.forEach(person -> {
 			try {
 				person.serialize(output);
