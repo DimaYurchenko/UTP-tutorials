@@ -8,7 +8,7 @@ import eu.glowacki.utp.assignment10.repositories.IRepository;
 
 public abstract class RepositoryTestBase<TDTO extends DTOBase, TRepository extends IRepository<TDTO>> {
 
-	private TRepository _repository;
+	protected TRepository _repository;
 
 	@Before
 	public void before() {

@@ -2,6 +2,7 @@ package eu.glowacki.utp.assignment10.dtos;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserDTO extends DTOBase {
 
@@ -54,4 +55,15 @@ public class UserDTO extends DTOBase {
 			_groups.remove(group);
 		}
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		UserDTO userDTO = (UserDTO) o;
+		return Objects.equals(_login, userDTO._login)
+				&& Objects.equals(_password, userDTO._password)
+				&& Objects.equals(_groups, userDTO._groups);
+	}
+
 }
